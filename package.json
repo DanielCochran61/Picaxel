@@ -1,0 +1,20 @@
+{
+  "name": "picaxel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielCochran61/Picaxel.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanielCochran61/Picaxel/issues"
+  },
+  "homepage": "https://github.com/DanielCochran61/Picaxel#readme",
+  "dependencies": {}
+}
