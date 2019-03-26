@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-var Block = new Schema({
+var Block = new mongoose.Schema({
   x: Number,
   y: Number,
   color: String
