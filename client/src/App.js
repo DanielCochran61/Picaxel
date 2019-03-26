@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./components/LoginPage";
+import SignupForm from "./components/SignupForm";
 import HomePage from "./components/HomePage";
 import UserContext from "./context/UserContext";
 
@@ -29,6 +30,7 @@ class App extends Component {
 				<UserContext.Provider value={{ setUser, user }}>
 					<ProtectedRoute exact path="/" component={HomePage} />
 					<Route exact path="/login" component={LoginPage} />
+					<Route exact path="/signup" component={SignupForm} />
 				</UserContext.Provider>
 			</div>
 		</Router>
