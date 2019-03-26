@@ -18,6 +18,8 @@
   "homepage": "https://github.com/DanielCochran61/Picaxel#readme",
   "dependencies": {
     "express": "^4.16.4",
-    "mongoose": "^5.4.19"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.4.19",
+    "semantic-ui-css": "^2.4.1"
   }
 }

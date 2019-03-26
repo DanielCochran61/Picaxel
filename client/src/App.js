@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import 'semantic-ui-css/semantic.min.css'
 import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./components/LoginPage";
 import HomePage from "./components/HomePage";
