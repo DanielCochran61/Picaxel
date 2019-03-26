@@ -2,13 +2,12 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 // define the User model schema
-const UserSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    index: { unique: true }
-  },
-  password: String
+var UserSchema = new Schema({
+  username: {trim: true, type: String, index: {unique: true}, required: "Username is required"},
+  password: {type: String, required: true},
+  canplace: Boolean
 });
+
 
 /**
  * Compare the passed password with the value in the database. A model method.
@@ -36,3 +35,4 @@ UserSchema.pre('save', function saveHook(next) {
 
 
 module.exports = mongoose.model('User', UserSchema);
+
