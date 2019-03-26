@@ -43,6 +43,7 @@ class HomePage extends React.Component {
 						</div>
 					</button>
 				</div>
+
 			</div>
 
 		)
