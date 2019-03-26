@@ -5,7 +5,7 @@ const HomePage = (props) => (
 	<UserContext.Consumer>
 		{context => {
 			return <div>
-				<h1>Lets Start Making Art Toegther!! (protected)</h1>
+				<h1>Lets Start Making Art Together!! (protected)</h1>
 				<h2>Welcome, {context.user.username}!</h2>
 			</div>
 		}}
