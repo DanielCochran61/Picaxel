@@ -1,15 +1,38 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
-/**
- * Create a new Person schema
- */
+// define the User model schema
 var UserSchema = new Schema({
   username: {trim: true, type: String, index: {unique: true}, required: "Username is required"},
   password: {type: String, required: true},
   canplace: Boolean
 });
 
-const User = mongoose.model("User", UserSchema);
 
-module.exports = User;
+/**
+ * Compare the passed password with the value in the database. A model method.
+ *
+ * @param {string} password
+ * @returns {object} callback
+ */
+UserSchema.methods.comparePassword = function comparePassword(password) {
+  return bcrypt.compareSync(password, this.password);
+};
+
+
+
+UserSchema.pre('save', function saveHook(next) {
+  const user = this;
+
+  // proceed further only if the password is modified or the user is new
+  if (!user.isModified('password')) return next();
+
+  user.password = bcrypt.hashSync(user.password, parseInt(process.env.SALT))
+
+  return next();
+
+});
+
+
+module.exports = mongoose.model('User', UserSchema);
+
