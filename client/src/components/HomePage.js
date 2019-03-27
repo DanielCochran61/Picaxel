@@ -24,11 +24,11 @@ class HomePage extends React.Component {
 		return (
 			<div class="ui fluid container">
 				<UserContext.Consumer>
-					{context => {
+					{context => (
 						<header>
 							<h3>Welcome, {context.user.username}!</h3>
 						</header>
-					}}
+					)}
 				</UserContext.Consumer>
 				<h5>You have a pixel awaiting placement</h5>
 				<h5>Timer till next free pixel</h5>
