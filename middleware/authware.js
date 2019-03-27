@@ -9,7 +9,7 @@ module.exports = function (req, res, next) {
         const { authorization } = req.headers;
         if (!authorization) throw new Error();
         const token = authorization.replace("Bearer ", "");
-        const decoded = jwt.verify(token, config.jwtSecret);
+        const decoded = jwt.verify(token, process.env.JWT_KEY);
         
         User.find({ id: decoded.data })
             .then(function (user) {
