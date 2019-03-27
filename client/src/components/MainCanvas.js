@@ -291,7 +291,7 @@ class MainCanvas extends Component {
   render() {
     return (
       <Container>
-        <Grid columns={2} divided>
+        <Grid columns={1} divided>
           <Grid.Column width={16}>
             <div id="container">
               <div className="" id="containment">
@@ -304,7 +304,7 @@ class MainCanvas extends Component {
           </Grid.Column>
           <Grid.Column>
             <Grid>
-              <Grid.Column width={14}>
+              <Grid.Column width={10}>
                 <Coord currx={this.state.currx} curry={this.state.curry} chx={this.state.chx} chy={this.state.chy} />
                 <Form>
                   <Form.Group widths="equal">
