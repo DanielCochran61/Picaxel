@@ -4,6 +4,7 @@ import Coord from './Coord';
 import { Container, Form, Grid } from 'semantic-ui-react';
 import axios from 'axios';
 import 'semantic-ui-css/semantic.min.css';
+import { ChromePicker } from 'react-color';
 
 class MainCanvas extends Component {
 
@@ -57,12 +58,6 @@ class MainCanvas extends Component {
     widget.height = "7";
 
     widget.style = "border: 1px solid black";
-
-
-
-
-
-
 
 
 
@@ -264,6 +259,11 @@ class MainCanvas extends Component {
     })
   }
 
+  handlePickerChange(color, e) {
+    console.log(color);
+    console.log(e);
+  }
+
   formClick = (e) => {
     e.preventDefault();
     let coord = "pixels." + this.state.formx + "-" + this.state.formy;
@@ -286,6 +286,7 @@ class MainCanvas extends Component {
     });
   }
 
+  
 
   render() {
     return (
@@ -302,9 +303,9 @@ class MainCanvas extends Component {
             </div>
           </Grid.Column>
           <Grid.Column>
-            <Grid columns={2} divided>
-              <Grid.Column width={10}>
-                <Coord chx={this.state.chx} chy={this.state.chy} />
+            <Grid>
+              <Grid.Column width={14}>
+                <Coord currx={this.state.currx} curry={this.state.curry} chx={this.state.chx} chy={this.state.chy} />
                 <Form>
                   <Form.Group widths="equal">
                     <Form.Input fluid onChange={this.formChange} name="formx" label="X coordinate" />
@@ -318,20 +319,16 @@ class MainCanvas extends Component {
                   <Form.Button onClick={this.formClick}>Submit</Form.Button>
                 </Form>
               </Grid.Column>
-              <Grid.Column>
-                <Widget />
+              <Grid.Column width={6}>
+                <ChromePicker disableAlpha={true}/>
               </Grid.Column>
             </Grid>
           </Grid.Column>
         </Grid>
+        <Widget />
       </Container>
-
-
-
-
     );
   }
 }
-
 
 export default MainCanvas;

@@ -7,6 +7,9 @@
 #widgetScale {
     width: 20%;
     transform-origin: top left;
+    position: fixed;
+    bottom: 300px;
+    left: 80px;
 }
 
 #widgetContain {
@@ -30,3 +33,4 @@ canvas {
     float: left;
     margin: 0 0;
 }
+
