@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const Canvas = require("../models/Canvas");
 
 module.exports = function (app) {
 
@@ -50,6 +51,21 @@ module.exports = function (app) {
 		});
 	});
 
+	app.get("/api/canvas", function ( req, res) {
+		Canvas.findOne({ name: "Test1" }).then(response => {
+			res.json(response);
+		}).catch(err => {
+			res.json(err);
+		});
+	});
 
+
+	app.put("/api/canvas", function( req, res) {
+		Canvas.findOneAndUpdate( { name: "Test1" }, { "" : req.body.rgb}, { upsert : true, new : true } ).then(response => {
+			res.json(req.body);
+		}).catch(err => {
+			res.json(err);
+		});
+	});
 
 }

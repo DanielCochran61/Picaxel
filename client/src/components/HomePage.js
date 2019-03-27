@@ -1,5 +1,6 @@
 import React from "react";
 import UserContext from "../context/UserContext";
+import MainCanvas from "./MainCanvas";
 import {
 	Button,
 	Container,
@@ -24,16 +25,15 @@ class HomePage extends React.Component {
 		return (
 			<Grid container columns={2}>
 				<Grid.Column>
-
-
+					<MainCanvas/>
 
 				</Grid.Column>
 				<Grid.Column>
 					<Container fluid>
 						<UserContext.Consumer>
-							 {/* {context => {
+							 {context => (
 								<Header as="h2">Welcome, {context.user.username}!</Header>
-							 }}  */}
+								)}  
 						</UserContext.Consumer>
 						<Grid.Row>
 							<Header as="h3">You have a pixel awaiting placement! </Header>
