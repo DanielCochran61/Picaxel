@@ -31,9 +31,9 @@ class HomePage extends React.Component {
 				<Grid.Column>
 					<Container fluid>
 						<UserContext.Consumer>
-							{/* {context => {
+							 {/* {context => {
 								<Header as="h2">Welcome, {context.user.username}!</Header>
-							 }} */}
+							 }}  */}
 						</UserContext.Consumer>
 						<Grid.Row>
 							<Header as="h3">You have a pixel awaiting placement! </Header>
@@ -58,7 +58,6 @@ class HomePage extends React.Component {
 			</Grid>
 		)
 	}
-
 
 }
 export default HomePage;
