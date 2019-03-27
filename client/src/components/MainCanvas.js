@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Widget from './Widget';
 import Coord from './Coord';
-import { Form } from 'semantic-ui-react';
+import { Container, Form, Grid } from 'semantic-ui-react';
 import axios from 'axios';
+import 'semantic-ui-css/semantic.min.css';
 
 class MainCanvas extends Component {
 
@@ -67,9 +68,9 @@ class MainCanvas extends Component {
 
     //////////////////////////api////////////////////////////////////
 
-    axios.get('/api/canvas').then( res => {
+    axios.get('/api/canvas').then(res => {
       console.log(res);
-      for(let pixel in res.data.pixels) {
+      for (let pixel in res.data.pixels) {
         let coord = pixel.toString().split('-');
         let xcoord = parseInt(coord[0]);
         let ycoord = parseInt(coord[1]);
@@ -80,7 +81,7 @@ class MainCanvas extends Component {
 
         console.log(red, green, blue);
 
-        c.fillStyle= `rgb(${red},${green},${blue})`;
+        c.fillStyle = `rgb(${red},${green},${blue})`;
         c.fillRect(xcoord - 1, ycoord - 1, 1, 1);
       }
     })
@@ -259,20 +260,20 @@ class MainCanvas extends Component {
   formChange = (e) => {
     e.preventDefault();
     this.setState({
-      [e.target.name] : e.target.value
+      [e.target.name]: e.target.value
     })
   }
 
   formClick = (e) => {
     e.preventDefault();
     let coord = "pixels." + this.state.formx + "-" + this.state.formy;
-    let rgb = [parseInt(this.state.formr),parseInt(this.state.formg),parseInt(this.state.formb)];
+    let rgb = [parseInt(this.state.formr), parseInt(this.state.formg), parseInt(this.state.formb)];
 
     axios.put('/api/canvas', {
-      coord : coord,
-      rgb : rgb
+      coord: coord,
+      rgb: rgb
     }).then(response => {
-      if(response.status === 200) {
+      if (response.status === 200) {
         let canvas = document.getElementById('mainCanvas');
         let c = canvas.getContext('2d');
         c.fillStyle = `rgb(${parseInt(this.state.formr)}, ${parseInt(this.state.formg)}, ${parseInt(this.state.formb)})`;
@@ -288,38 +289,46 @@ class MainCanvas extends Component {
 
   render() {
     return (
-      // <Container>
-      //   <Grid columns={2} divided>
-      //     <Grid.Column>
+      <Container>
+        <Grid columns={2} divided>
+          <Grid.Column width={16}>
+            <div id="container">
+              <div className="" id="containment">
+                <div className="canvasDiv" id="scaleDiv">
+                  <canvas id="mainCanvas">
+                  </canvas>
+                </div>
+              </div>
+            </div>
+          </Grid.Column>
+          <Grid.Column>
+            <Grid columns={2} divided>
+              <Grid.Column width={10}>
+                <Coord chx={this.state.chx} chy={this.state.chy} />
+                <Form>
+                  <Form.Group widths="equal">
+                    <Form.Input fluid onChange={this.formChange} name="formx" label="X coordinate" />
+                    <Form.Input fluid onChange={this.formChange} name="formy" label="Y coordinate" />
+                  </Form.Group>
+                  <Form.Group widths="equal">
+                    <Form.Input fluid onChange={this.formChange} name="formr" label="Red" />
+                    <Form.Input fluid onChange={this.formChange} name="formg" label="Green" />
+                    <Form.Input fluid onChange={this.formChange} name="formb" label="Blue" />
+                  </Form.Group>
+                  <Form.Button onClick={this.formClick}>Submit</Form.Button>
+                </Form>
+              </Grid.Column>
+              <Grid.Column>
+                <Widget />
+              </Grid.Column>
+            </Grid>
+          </Grid.Column>
+        </Grid>
+      </Container>
 
-      //     </Grid.Column>
-      //   </Grid>
-      // </Container>
 
 
 
-      <div id="container">
-        <div className="" id="containment">
-          <div className="canvasDiv" id="scaleDiv">
-            <canvas id="mainCanvas">
-            </canvas>
-          </div>
-        </div>
-        <Coord chx={this.state.chx} chy={this.state.chy} />
-        <Widget />
-        <Form>
-          <Form.Group widths = "equal">
-            <Form.Input fluid onChange={this.formChange} name="formx" label="X coordinate" />
-            <Form.Input fluid onChange={this.formChange} name="formy" label="Y coordinate" />
-          </Form.Group>
-          <Form.Group widths = "equal">
-            <Form.Input fluid onChange={this.formChange} name="formr" label="Red"/>
-            <Form.Input fluid onChange={this.formChange} name="formg" label="Green"/>
-            <Form.Input fluid onChange={this.formChange} name="formb" label="Blue"/>
-          </Form.Group>
-          <Form.Button onClick={this.formClick}>Submit</Form.Button>
-        </Form>
-      </div>
     );
   }
 }

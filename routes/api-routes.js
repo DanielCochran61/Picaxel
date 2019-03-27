@@ -40,7 +40,7 @@ module.exports = function (app) {
 
 	app.get("/api/protected", function (req, res) {
 		res.json({
-			message: "Let's get ready to paint!! You've been autheticated!!",
+			message: "Let's get ready to paint!! You've been authenticated!!",
 			user: req.user
 		});
 	});
