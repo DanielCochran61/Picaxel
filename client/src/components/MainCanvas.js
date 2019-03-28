@@ -23,7 +23,8 @@ class MainCanvas extends Component {
     formy: 0,
     formr: 0,
     formg: 0,
-    formb: 0
+    formb: 0,
+    pickerColor: ''
   }
 
   componentDidMount() {
@@ -49,7 +50,7 @@ class MainCanvas extends Component {
       c.fillStyle = `rgb(${red},${green},${blue})`;
       c.fillRect(x - 1, y - 1, 1, 1);
 
-      
+      this.renderWidget();
     })
 
     let canvas = document.getElementById('mainCanvas');
@@ -312,7 +313,10 @@ class MainCanvas extends Component {
     });
   }
 
-  
+  handleChangeComplete = (color) => {
+    this.setState({ pickerColor : color });
+  }
+
 
   render() {
     return (
@@ -346,7 +350,7 @@ class MainCanvas extends Component {
                 </Form>
               </Grid.Column>
               <Grid.Column width={6}>
-                <ChromePicker disableAlpha={true}/>
+                <ChromePicker color={this.state.pickerColor} onChange={ this.handleChangeComplete } disableAlpha={true}/>
               </Grid.Column>
             </Grid>
           </Grid.Column>

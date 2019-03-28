@@ -9,11 +9,10 @@ module.exports = function (app, io, http) {
 		const {username, password} = req.body;
 		User.findOne({ username: username })
 			.then(function (user) {
-				console.log(user);
 				const isValidPass = user.comparePassword(password);
 				if (isValidPass) {
 					// I need to ask about what I enter for the "superSecretKey. I know that it was a procENV thing" //
-					const token = jwt.sign({ data: user.id }, process.env.JWT_KEY);
+					const token = jwt.sign({ data: user.id }, "superSecretKey");
 					res.json({
 						id: user.id,
 						username: user.username,
