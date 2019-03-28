@@ -5,6 +5,7 @@ import { Container, Form, Grid } from 'semantic-ui-react';
 import axios from 'axios';
 import 'semantic-ui-css/semantic.min.css';
 import { ChromePicker } from 'react-color';
+import io from 'socket.io-client';
 
 class MainCanvas extends Component {
 
@@ -27,6 +28,29 @@ class MainCanvas extends Component {
 
   componentDidMount() {
     ////////////////////canvas//////////////////////////
+
+    let socket = io.connect('http://localhost:3002');
+
+    socket.on('message', data => {
+      console.log(data);
+      let coord = data.data.coord.split('.')[1];
+      console.log(coord);
+      let x = coord.split('-')[0];
+      let y = coord.split('-')[1];
+      let color = data.data.rgb;
+      let red = color[0];
+      let green = color[1];
+      let blue = color[2];
+      
+      let canvas = document.getElementById('mainCanvas');
+  
+      let c = canvas.getContext('2d');
+
+      c.fillStyle = `rgb(${red},${green},${blue})`;
+      c.fillRect(x - 1, y - 1, 1, 1);
+
+      
+    })
 
     let canvas = document.getElementById('mainCanvas');
 
@@ -273,12 +297,14 @@ class MainCanvas extends Component {
       coord: coord,
       rgb: rgb
     }).then(response => {
+      let socket = io.connect('http://localhost:3002'); 
       if (response.status === 200) {
-        let canvas = document.getElementById('mainCanvas');
-        let c = canvas.getContext('2d');
-        c.fillStyle = `rgb(${parseInt(this.state.formr)}, ${parseInt(this.state.formg)}, ${parseInt(this.state.formb)})`;
-        c.fillRect(this.state.formx - 1, this.state.formy - 1, 1, 1);
-        this.setWidgetColor();
+        // let canvas = document.getElementById('mainCanvas');
+        // let c = canvas.getContext('2d');
+        // c.fillStyle = `rgb(${parseInt(this.state.formr)}, ${parseInt(this.state.formg)}, ${parseInt(this.state.formb)})`;
+        // c.fillRect(this.state.formx - 1, this.state.formy - 1, 1, 1);
+        // this.setWidgetColor();
+        socket.emit('pixel', response);
       }
       console.log(response);
     }).catch(err => {

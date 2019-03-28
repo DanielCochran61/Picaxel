@@ -2,7 +2,7 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const Canvas = require("../models/Canvas");
 
-module.exports = function (app) {
+module.exports = function (app, io, http) {
 
 	app.post("/api/authenticate", function (req, res) {
 		console.log(req.body);
@@ -60,12 +60,28 @@ module.exports = function (app) {
 	});
 
 
+	io.on('connection', (socket) => {
+		socket.on('pixel', data => {
+			console.log(data);
+			io.emit('message', data);
+		})
+		console.log('a user is connected');
+	})
+
 	app.put("/api/canvas", function( req, res) {
-		Canvas.findOneAndUpdate( { name: "Test1" }, { "" : req.body.rgb}, { upsert : true, new : true } ).then(response => {
+		Canvas.findOneAndUpdate( { name: "Test1" }, { [req.body.coord] : req.body.rgb}, { upsert : true, new : true } ).then(response => {
+			if(response.status === 200) {
+				io.emit('message', req.body);
+			}
 			res.json(req.body);
 		}).catch(err => {
 			res.json(err);
 		});
 	});
+
+
+	http.listen(3002, function() {
+		console.log("listening on 3002");
+	})
 
 }
