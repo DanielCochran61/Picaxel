@@ -9,6 +9,7 @@ module.exports = function (app) {
 		const {username, password} = req.body;
 		User.findOne({ username: username })
 			.then(function (user) {
+				console.log(user);
 				const isValidPass = user.comparePassword(password);
 				if (isValidPass) {
 					// I need to ask about what I enter for the "superSecretKey. I know that it was a procENV thing" //
