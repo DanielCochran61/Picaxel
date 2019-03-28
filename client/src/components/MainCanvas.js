@@ -227,8 +227,8 @@ class MainCanvas extends Component {
     let index = 0;
 
 
-    for (let y = 1; y < 8; y++) {
-      for (let x = 1; x < 8; x++) {
+    for (let y = 0; y < 7; y++) {
+      for (let x = 0; x < 7; x++) {
         let red = this.state.widget[index];
         let green = this.state.widget[index + 1];
         let blue = this.state.widget[index + 2];
