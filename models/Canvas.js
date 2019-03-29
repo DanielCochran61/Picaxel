@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-var Block = new mongoose.Schema({
-  x: Number,
-  y: Number,
-  color: String
+var CanvasSchema = new Schema({
+  name : {
+    type: String,
+    trim: true,
+    default: "Test1"
+  },
+  pixels: Schema.Types.Mixed
 });
 
-const Block = mongoose.model("Block", BlockSchema);
+const Canvas = mongoose.model("Canvas", CanvasSchema);
 
-module.exports = Block;
+module.exports = Canvas;

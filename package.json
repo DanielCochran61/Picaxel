@@ -25,10 +25,13 @@
   "homepage": "https://github.com/DanielCochran61/Picaxel#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "if-env": "^1.0.4",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.4.19"
+    "mongoose": "^5.4.19",
+    "semantic-ui-css": "^2.4.1",
+    "socket.io": "^2.2.0"
   },
   "devDependencies": {
     "concurrently": "^4.1.0",

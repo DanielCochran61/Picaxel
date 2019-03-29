@@ -1,0 +1,35 @@
+#scaleDiv {
+    transform-origin: top left;
+    overflow: auto;
+}
+
+
+#widgetScale {
+    transform-origin: top left;
+    position: fixed;
+    bottom: 300px;
+    left: 80px;
+}
+
+#widgetContain {
+    float: left;
+    margin-left: 5%;
+}
+
+#coord {
+    margin-left: 5%;
+}
+
+
+
+canvas {
+    image-rendering: pixelated;
+    overflow: hidden;
+}
+
+#containment {
+    overflow: auto;
+    float: left;
+    margin: 0 0;
+}
+
