@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Widget from './Widget';
 import Coord from './Coord';
 import { Container, Form, Grid } from 'semantic-ui-react';
 import axios from 'axios';
@@ -32,6 +31,8 @@ class MainCanvas extends Component {
   }
 
   componentDidMount() {
+    //////////////////////widge///////////////////////////////
+
     ////////////////////canvas//////////////////////////
 
 
@@ -388,7 +389,6 @@ class MainCanvas extends Component {
             </Grid>
           </Grid.Column>
         </Grid>
-        <Widget />
       </Container>
     );
   }

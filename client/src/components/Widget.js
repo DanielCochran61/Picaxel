@@ -1,12 +1,15 @@
 import React from 'react';
+import Draggable from 'react-draggable';
 
 const Widget = () => (
-    <div id="widgetContain">
-        <div id="widgetScale">
-            <canvas id="widget">
-            </canvas>
+    <Draggable >
+        <div id="widgetContain">
+            <div id="widgetScale">
+                <canvas id="widget">
+                </canvas>
+            </div>
         </div>
-    </div>
+    </Draggable>
 )
 
 

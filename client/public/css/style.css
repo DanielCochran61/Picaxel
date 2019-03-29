@@ -6,13 +6,9 @@
 
 #widgetScale {
     transform-origin: top left;
-    position: fixed;
-    bottom: 300px;
-    left: 80px;
 }
 
 #widgetContain {
-    float: left;
     margin-left: 5%;
 }
 

@@ -1,8 +1,12 @@
 import React from "react";
 // import UserContext from "../context/UserContext";
 import MainCanvas from "./MainCanvas";
+import Widget from './Widget';
 const HomePage = (props) => (
-	<MainCanvas />
+	<div>
+		<Widget/>
+		<MainCanvas />
+	</div>
 	// <UserContext.Consumer>
 	// 	{context => {
 	// 		return <div>
