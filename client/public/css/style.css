@@ -5,12 +5,27 @@
 
 
 #widgetScale {
+    position: relative;
+    z-index: 99;
     transform-origin: top left;
 }
 
+#widgetDrag {
+    position: relative;
+    z-index: 99;
+}
+
+#widget {
+    position: relative;
+    z-index: 99;
+}
+
+
+
 #widgetContain {
+    position: relative;
+    z-index: 99;
     margin-left: 5%;
-    z-index: 10;
 }
 
 #coord {
@@ -23,6 +38,7 @@ canvas {
     image-rendering: pixelated;
     overflow: hidden;
 }
+
 
 #containment {
     overflow: auto;
