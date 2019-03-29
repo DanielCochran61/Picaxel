@@ -9,7 +9,7 @@ import io from 'socket.io-client';
 
 const remoteURL = "https://whispering-crag-56456.herokuapp.com";
 
-const socket = io.connect( process.env.NODE_ENV === "production" ? remoteURL : "http://localhost:3001");
+const socket = io.connect(process.env.NODE_ENV === "production" ? remoteURL : "http://localhost:3001");
 
 class MainCanvas extends Component {
 
@@ -45,9 +45,9 @@ class MainCanvas extends Component {
       let red = color[0];
       let green = color[1];
       let blue = color[2];
-      
+
       let canvas = document.getElementById('mainCanvas');
-  
+
       let c = canvas.getContext('2d');
 
       c.fillStyle = `rgb(${red},${green},${blue})`;
@@ -298,29 +298,44 @@ class MainCanvas extends Component {
 
   formClick = (e) => {
     e.preventDefault();
-    let coord = "pixels." + this.state.formx + "-" + this.state.formy;
-    let rgb = [parseInt(this.state.formr), parseInt(this.state.formg), parseInt(this.state.formb)];
+    let x = this.state.formx;
+    let y = this.state.formy;
+    let r = this.state.formr;
+    let g = this.state.formg;
+    let b = this.state.formb;
 
-    axios.put('/api/canvas', {
-      coord: coord,
-      rgb: rgb
-    }).then(response => {
-      if (response.status === 200) {
-        // let canvas = document.getElementById('mainCanvas');
-        // let c = canvas.getContext('2d');
-        // c.fillStyle = `rgb(${parseInt(this.state.formr)}, ${parseInt(this.state.formg)}, ${parseInt(this.state.formb)})`;
-        // c.fillRect(this.state.formx - 1, this.state.formy - 1, 1, 1);
-        // this.setWidgetColor();
-        socket.emit('pixel', response);
-      }
-      console.log(response);
-    }).catch(err => {
-      console.log(err);
-    });
+    if (Number.isInteger(parseInt(x)) && Number.isInteger(parseInt(y))
+      && (parseInt(x) >= 1 && parseInt(x) <= 1000) && (parseInt(y) >= 1 && parseInt(y) <= 800)
+      && (parseInt(r) >= 1 && parseInt(r) <= 255)
+      && (parseInt(b) >= 1 && parseInt(b) <= 255)
+      && (parseInt(g) >= 1 && parseInt(g) <= 255)) {
+
+      let coord = "pixels." + x + "-" + y;
+      let rgb = [parseInt(r), parseInt(g), parseInt(b)];
+
+      axios.put('/api/canvas', {
+        coord: coord,
+        rgb: rgb
+      }).then(response => {
+        if (response.status === 200) {
+          // let canvas = document.getElementById('mainCanvas');
+          // let c = canvas.getContext('2d');
+          // c.fillStyle = `rgb(${parseInt(this.state.formr)}, ${parseInt(this.state.formg)}, ${parseInt(this.state.formb)})`;
+          // c.fillRect(this.state.formx - 1, this.state.formy - 1, 1, 1);
+          // this.setWidgetColor();
+          socket.emit('pixel', response);
+        }
+        console.log(response);
+      }).catch(err => {
+        console.log(err);
+      });
+    }
+
+
   }
 
   handleChangeComplete = (color) => {
-    this.setState({ pickerColor : color });
+    this.setState({ pickerColor: color });
   }
 
 
@@ -356,7 +371,7 @@ class MainCanvas extends Component {
                 </Form>
               </Grid.Column>
               <Grid.Column width={6}>
-                <ChromePicker color={this.state.pickerColor} onChange={ this.handleChangeComplete } disableAlpha={true}/>
+                <ChromePicker color={this.state.pickerColor} onChange={this.handleChangeComplete} disableAlpha={true} />
               </Grid.Column>
             </Grid>
           </Grid.Column>
