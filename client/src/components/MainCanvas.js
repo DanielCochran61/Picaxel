@@ -306,9 +306,10 @@ class MainCanvas extends Component {
 
     let xCheck = (Number.isInteger(parseInt(x)) && parseInt(x) >= 1 && parseInt(x) <= 1000);
     let yCheck = (Number.isInteger(parseInt(y)) && parseInt(y) >= 1 && parseInt(y) <= 800);
-    let rCheck = (parseInt(r) >= 1 && parseInt(r) <= 255);
-    let gCheck = (parseInt(g) >= 1 && parseInt(g) <= 255);
-    let bCheck = (parseInt(b) >= 1 && parseInt(b) <= 255);
+    let rCheck = (parseInt(r) >= 0 && parseInt(r) <= 255);
+    let gCheck = (parseInt(g) >= 0 && parseInt(g) <= 255);
+    let bCheck = (parseInt(b) >= 0 && parseInt(b) <= 255);
+    console.log(xCheck, yCheck, rCheck, gCheck, bCheck);
 
     if (xCheck && yCheck && rCheck && gCheck && bCheck) {
 
