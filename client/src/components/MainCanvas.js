@@ -32,7 +32,7 @@ class MainCanvas extends Component {
 
     let remoteURL = "https://whispering-crag-56456.herokuapp.com:8080";
 
-    let socket = io.connect(remoteURL || 'http://localhost:3002');
+    let socket = io(remoteURL || 'http://localhost:3002');
 
     socket.on('message', data => {
       console.log(data);
@@ -301,7 +301,7 @@ class MainCanvas extends Component {
       rgb: rgb
     }).then(response => {
       let remoteURL = "https://whispering-crag-56456.herokuapp.com:8080";
-      let socket = io.connect(remoteURL || 'http://localhost:3002'); 
+      let socket = io(remoteURL || 'http://localhost:3002'); 
       if (response.status === 200) {
         // let canvas = document.getElementById('mainCanvas');
         // let c = canvas.getContext('2d');
