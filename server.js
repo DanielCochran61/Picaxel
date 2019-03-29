@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3001;
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-mongoose.connect('mongodb://localhost/test1', { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/test1' , { useNewUrlParser: true });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
