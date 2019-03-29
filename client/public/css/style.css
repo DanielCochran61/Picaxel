@@ -6,7 +6,7 @@
 
 #widgetScale {
     position: relative;
-    z-index: 99;
+    z-index: -1;
     transform-origin: top left;
 }
 

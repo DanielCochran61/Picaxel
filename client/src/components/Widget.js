@@ -2,14 +2,15 @@ import React from 'react';
 import Draggable from 'react-draggable';
 
 const Widget = () => (
-    <Draggable id="widgetDrag" >
+    
         <div id="widgetContain">
             <div id="widgetScale">
+            <Draggable scale={20} id="widgetDrag" >
                 <canvas id="widget">
                 </canvas>
+            </Draggable>
             </div>
         </div>
-    </Draggable>
 )
 
 

@@ -74,7 +74,7 @@ class MainCanvas extends Component {
     ///////////////////////widget////////////////////////////////////////
     let widgetScale = document.getElementById('widgetScale');
 
-    widgetScale.style = "transform: scale(18, 18)";
+    widgetScale.style = "transform: scale(20, 20)";
 
 
     let widget = document.getElementById('widget');
