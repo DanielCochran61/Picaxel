@@ -149,14 +149,8 @@ class MainCanvas extends Component {
             currScale: this.state.currScale + 1
           }, () => {
             let container = document.getElementById('containment');
-            // let offsetx = 1000/this.state.currScale;
-            // let offsety = 800/this.state.currScale;
             scaleDiv.style = `transform: scale(${this.state.currScale},${this.state.currScale})`;
-            container.scroll(this.state.chx * this.state.currScale, this.state.chy * this.state.currScale);
-            this.setState({
-              scrollx: this.state.chx * this.state.currScale,
-              scrolly: this.state.chy * this.state.currScale
-            });
+            container.scroll(this.state.chx * (this.state.currScale -1), this.state.chy * (this.state.currScale -1));
           });
         }
         console.log('scrolling up');
@@ -167,11 +161,7 @@ class MainCanvas extends Component {
             currScale: this.state.currScale - 1
           }, () => {
             scaleDiv.style = `transform: scale(${this.state.currScale},${this.state.currScale})`;
-            container.scroll(this.state.chx * this.state.currScale, this.state.chy * this.state.currScale);
-            this.setState({
-              scrollx: this.state.chx * this.state.currScale,
-              scrolly: this.state.chy * this.state.currScale
-            });
+            container.scroll(this.state.chx * (this.state.currScale -1) , this.state.chy * (this.state.currScale -1));
           });
         }
         console.log('scrolling down');
