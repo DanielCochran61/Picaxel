@@ -80,8 +80,8 @@ module.exports = function (app, io, http) {
 	});
 
 
-	io.listen(3002, function() {
-		console.log("listening on 3002");
+	io.listen(8080, function() {
+		console.log("listening on 8080");
 	})
 
 }
