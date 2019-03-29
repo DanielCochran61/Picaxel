@@ -87,7 +87,7 @@ class MainCanvas extends Component {
     widget.style = "border: 1px solid black";
 
     widgetc.beginPath();
-    widgetc.rect(1, 1, 7, 7);
+    widgetc.rect(0, 0, 7, 7);
     widgetc.fillStyle = "white";
     widgetc.fill();
 
