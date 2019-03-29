@@ -7,9 +7,9 @@ import 'semantic-ui-css/semantic.min.css';
 import { ChromePicker } from 'react-color';
 import io from 'socket.io-client';
 
-const remoteURL = "https://whispering-crag-56456.herokuapp.com:8080";
+const remoteURL = "https://whispering-crag-56456.herokuapp.com";
 
-const socket = io.connect("http://whispering-crag-56456.herokuapp.com:8080");
+const socket = io.connect("http://whispering-crag-56456.herokuapp.com");
 
 class MainCanvas extends Component {
 

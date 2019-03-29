@@ -19,6 +19,6 @@ if (process.env.NODE_ENV === "production") {
 
 require('./routes/api-routes')(app, io, http);
 
-app.listen(PORT, function() {
+http.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
