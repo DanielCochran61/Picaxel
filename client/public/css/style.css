@@ -10,6 +10,7 @@
 
 #widgetContain {
     margin-left: 5%;
+    z-index: 10;
 }
 
 #coord {
