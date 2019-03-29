@@ -7,6 +7,10 @@ import 'semantic-ui-css/semantic.min.css';
 import { ChromePicker } from 'react-color';
 import io from 'socket.io-client';
 
+const remoteURL = "https://whispering-crag-56456.herokuapp.com:8080";
+
+const socket = io(remoteURL || 'http://localhost:3002');
+
 class MainCanvas extends Component {
 
   state = {
@@ -30,9 +34,6 @@ class MainCanvas extends Component {
   componentDidMount() {
     ////////////////////canvas//////////////////////////
 
-    let remoteURL = "https://whispering-crag-56456.herokuapp.com:8080";
-
-    let socket = io(remoteURL || 'http://localhost:3002');
 
     socket.on('message', data => {
       console.log(data);
@@ -300,8 +301,6 @@ class MainCanvas extends Component {
       coord: coord,
       rgb: rgb
     }).then(response => {
-      let remoteURL = "https://whispering-crag-56456.herokuapp.com:8080";
-      let socket = io(remoteURL || 'http://localhost:3002'); 
       if (response.status === 200) {
         // let canvas = document.getElementById('mainCanvas');
         // let c = canvas.getContext('2d');
