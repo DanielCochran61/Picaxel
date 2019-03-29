@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import Auth from "../utils/Auth";
 import Axios from "axios";
-import { Grid, Form, Input, Button } from "semantic-ui-react";
+import { Grid, Form, Input, Button, Image } from "semantic-ui-react";
 
 class LoginForm extends Component {
   static contextType = UserContext;
@@ -44,10 +44,15 @@ class LoginForm extends Component {
       });
     }
   };
+  
+
 
   render() {
     return (
       <Grid>
+        <Grid.Row centered>
+        <Image src="https://fontmeme.com/permalink/190329/782fbe6b51d892a825fb0c88db50a702.png" alt="pixel-fonts" />
+        </Grid.Row>
         <Grid.Row centered>
           <Grid.Column width={3}>
             <Form onSubmit={this.registrationHandler}>
@@ -95,7 +100,9 @@ class LoginForm extends Component {
                 />
               </Form.Field>
               <Form.Field>
-                <Button type="submit" color="teal">Submit</Button>
+                <Button type="submit" color="teal">
+                  Submit
+                </Button>
               </Form.Field>
             </Form>
           </Grid.Column>
