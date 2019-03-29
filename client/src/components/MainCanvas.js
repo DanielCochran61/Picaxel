@@ -70,10 +70,6 @@ class MainCanvas extends Component {
     c.fill();
 
 
-
-    c.fillStyle = "rgb(255,176,59)";
-    c.fillRect(10, 10, 1, 1);
-
     ///////////////////////widget////////////////////////////////////////
     let widgetScale = document.getElementById('widgetScale');
 
