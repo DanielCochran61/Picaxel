@@ -78,10 +78,18 @@ class MainCanvas extends Component {
 
     let widget = document.getElementById('widget');
 
+
+    let widgetc = widget.getContext('2d');
+
     widget.width = "7";
     widget.height = "7";
 
     widget.style = "border: 1px solid black";
+
+    widgetc.beginPath();
+    widgetc.rect(1, 1, 7, 7);
+    widgetc.fillStyle = "white";
+    widgetc.fill();
 
 
 
