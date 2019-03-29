@@ -9,7 +9,7 @@ import io from 'socket.io-client';
 
 const remoteURL = "https://whispering-crag-56456.herokuapp.com:8080";
 
-const socket = io.connect("https://whispering-crag-56456.herokuapp.com:8080");
+const socket = io.connect("http://whispering-crag-56456.herokuapp.com:8080");
 
 class MainCanvas extends Component {
 
