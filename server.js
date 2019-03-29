@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-require('./routes/api-routes')(app, io, http);
+require('./routes/api-routes')(app, io, http, PORT);
 
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);

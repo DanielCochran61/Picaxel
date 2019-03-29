@@ -2,7 +2,7 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const Canvas = require("../models/Canvas");
 
-module.exports = function (app, io, http) {
+module.exports = function (app, io, http, PORT) {
 
 	app.post("/api/authenticate", function (req, res) {
 		console.log(req.body);
@@ -80,7 +80,7 @@ module.exports = function (app, io, http) {
 	});
 
 
-	http.listen(3002, function() {
+	http.listen(PORT, function() {
 		console.log("listening on 3002");
 	})
 
