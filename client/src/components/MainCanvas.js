@@ -221,7 +221,9 @@ class MainCanvas extends Component {
       curry = Math.floor(this.state.mousey / scale);
       this.setState({
         currx: currx,
-        curry: curry
+        curry: curry,
+        formx : currx,
+        formy: curry
       }, () => {
         this.setWidgetColor();
       })
@@ -338,7 +340,14 @@ class MainCanvas extends Component {
   }
 
   handleChangeComplete = (color) => {
-    this.setState({ pickerColor: color });
+    this.setState({ 
+      pickerColor: color}, () => {
+        this.setState({
+          formr : this.state.pickerColor.rgb.r,
+          formg : this.state.pickerColor.rgb.g,
+          formb : this.state.pickerColor.rgb.b
+        })
+      });
   }
 
 
@@ -362,13 +371,13 @@ class MainCanvas extends Component {
                 <Coord currx={this.state.currx} curry={this.state.curry} chx={this.state.chx} chy={this.state.chy} />
                 <Form>
                   <Form.Group widths="equal">
-                    <Form.Input fluid onChange={this.formChange} name="formx" label="X coordinate" />
-                    <Form.Input fluid onChange={this.formChange} name="formy" label="Y coordinate" />
+                    <Form.Input value={this.state.formx} fluid onChange={this.formChange} name="formx" label="X coordinate" />
+                    <Form.Input value={this.state.formy} fluid onChange={this.formChange} name="formy" label="Y coordinate" />
                   </Form.Group>
                   <Form.Group widths="equal">
-                    <Form.Input fluid onChange={this.formChange} name="formr" label="Red" />
-                    <Form.Input fluid onChange={this.formChange} name="formg" label="Green" />
-                    <Form.Input fluid onChange={this.formChange} name="formb" label="Blue" />
+                    <Form.Input value={this.state.formr} fluid onChange={this.formChange} name="formr" label="Red" />
+                    <Form.Input value={this.state.formg} fluid onChange={this.formChange} name="formg" label="Green" />
+                    <Form.Input value={this.state.formb} fluid onChange={this.formChange} name="formb" label="Blue" />
                   </Form.Group>
                   <Form.Button onClick={this.formClick}>Submit</Form.Button>
                 </Form>
