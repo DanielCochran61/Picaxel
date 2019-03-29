@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/test1' , { useNewUrlParser: true });
 
