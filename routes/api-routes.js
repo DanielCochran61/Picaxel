@@ -84,4 +84,8 @@ module.exports = function (app, io, http) {
 		console.log("listening on 8080");
 	})
 
+	io.listen(8079, function() {
+		console.log("io listening on 8080");
+	})
+
 }
