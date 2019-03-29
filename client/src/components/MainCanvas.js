@@ -50,7 +50,7 @@ class MainCanvas extends Component {
       c.fillStyle = `rgb(${red},${green},${blue})`;
       c.fillRect(x - 1, y - 1, 1, 1);
 
-      this.renderWidget();
+      this.setWidgetColor();
     })
 
     let canvas = document.getElementById('mainCanvas');
