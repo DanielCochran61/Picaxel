@@ -304,11 +304,13 @@ class MainCanvas extends Component {
     let g = this.state.formg;
     let b = this.state.formb;
 
-    if (Number.isInteger(parseInt(x)) && Number.isInteger(parseInt(y))
-      && (parseInt(x) >= 1 && parseInt(x) <= 1000) && (parseInt(y) >= 1 && parseInt(y) <= 800)
-      && (parseInt(r) >= 1 && parseInt(r) <= 255)
-      && (parseInt(b) >= 1 && parseInt(b) <= 255)
-      && (parseInt(g) >= 1 && parseInt(g) <= 255)) {
+    let xCheck = (Number.isInteger(parseInt(x)) && parseInt(x) >= 1 && parseInt(x) <= 1000);
+    let yCheck = (Number.isInteger(parseInt(y)) && parseInt(y) >= 1 && parseInt(y) <= 800);
+    let rCheck = (parseInt(r) >= 1 && parseInt(r) <= 255);
+    let gCheck = (parseInt(g) >= 1 && parseInt(g) <= 255);
+    let bCheck = (parseInt(b) >= 1 && parseInt(b) <= 255);
+
+    if (xCheck && yCheck && rCheck && gCheck && bCheck) {
 
       let coord = "pixels." + x + "-" + y;
       let rgb = [parseInt(r), parseInt(g), parseInt(b)];
