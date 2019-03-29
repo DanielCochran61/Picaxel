@@ -5,8 +5,11 @@
 
 
 #widgetScale {
+    width: 0.1%;
+    height: 0.1%;
     position: relative;
-    z-index: -1;
+    left: -20px;
+    z-index: -100;
     transform-origin: top left;
 }
 
@@ -23,6 +26,8 @@
 
 
 #widgetContain {
+    width: 0.1%;
+    height: 0.1%;
     position: relative;
     z-index: 99;
     margin-left: 5%;
