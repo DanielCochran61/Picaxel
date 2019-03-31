@@ -22,11 +22,6 @@ class App extends Component {
     return (
 		<Router>
 			<div>
-				<header>
-					<nav>
-						<Link to="/">Home</Link> | <Link to="/login">Login</Link>
-					</nav>
-				</header>
 				<UserContext.Provider value={{ setUser, user }}>
 					<ProtectedRoute exact path="/" component={HomePage} />
 					<Route exact path="/login" component={LoginPage} />

@@ -1,6 +1,7 @@
 #scaleDiv {
     transform-origin: top left;
     overflow: auto;
+    display: flex;
 }
 
 
@@ -37,6 +38,10 @@
     margin-left: 5%;
 }
 
+#root {
+    padding-top : 20px;
+}
+
 
 
 canvas {
@@ -44,10 +49,21 @@ canvas {
     overflow: hidden;
 }
 
+/* #mainCanvas {
+    margin: 0 auto;
+} */
+
 
 #containment {
     overflow: auto;
-    float: left;
-    margin: 0 0;
+    margin: 0 auto;
 }
+
+#container {
+    background-color: grey;
+    border: 2px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+}
+
 

@@ -37,9 +37,7 @@ class MainCanvas extends Component {
 
 
     socket.on('message', data => {
-      console.log(data);
       let coord = data.data.coord.split('.')[1];
-      console.log(coord);
       let x = coord.split('-')[0];
       let y = coord.split('-')[1];
       let color = data.data.rgb;
@@ -66,7 +64,7 @@ class MainCanvas extends Component {
     let c = canvas.getContext('2d');
 
     c.beginPath();
-    c.rect(1, 1, 1000, 800);
+    c.rect(0, 0, 1000, 800);
     c.fillStyle = "white";
     c.fill();
 
@@ -93,6 +91,11 @@ class MainCanvas extends Component {
     widgetc.fill();
 
 
+    widget.addEventListener("mouseover", e=> {
+      e.preventDefault();
+      widget.style.cursor = "move";
+    })
+
 
     //////////////////////////api////////////////////////////////////
 
@@ -106,8 +109,6 @@ class MainCanvas extends Component {
         let red = color[0];
         let green = color[1];
         let blue = color[2];
-
-        console.log(red, green, blue);
 
         c.fillStyle = `rgb(${red},${green},${blue})`;
         c.fillRect(xcoord - 1, ycoord - 1, 1, 1);
@@ -140,6 +141,10 @@ class MainCanvas extends Component {
 
     /////////////////////////////////////////////////////////////////
 
+    canvas.addEventListener('mouseover', e => {
+      // e.preventDefault();
+      canvas.style.cursor = "crosshair";
+    })
 
     canvas.addEventListener('wheel', e => {
       e.preventDefault();
@@ -243,23 +248,23 @@ class MainCanvas extends Component {
     let canvas = document.getElementById('mainCanvas');
     let c = canvas.getContext('2d');
 
-    let x = this.state.currx - 3;
-    let y = this.state.curry - 3;
+    let x = this.state.currx - 4;
+    let y = this.state.curry - 4;
 
     if (x <= 1) {
       x = 1;
     }
 
-    if (x >= 993) {
-      x = 993
+    if (x >= 992) {
+      x = 992
     }
 
     if (y <= 1) {
       y = 1;
     }
 
-    if (y >= 793) {
-      y = 793
+    if (y >= 792) {
+      y = 792
     }
 
     let colors = c.getImageData(x, y, 7, 7).data.slice();
@@ -285,8 +290,6 @@ class MainCanvas extends Component {
   }
 
   handlePickerChange(color, e) {
-    console.log(color);
-    console.log(e);
   }
 
   formClick = (e) => {
@@ -302,7 +305,6 @@ class MainCanvas extends Component {
     let rCheck = (parseInt(r) >= 0 && parseInt(r) <= 255);
     let gCheck = (parseInt(g) >= 0 && parseInt(g) <= 255);
     let bCheck = (parseInt(b) >= 0 && parseInt(b) <= 255);
-    console.log(xCheck, yCheck, rCheck, gCheck, bCheck);
 
     if (xCheck && yCheck && rCheck && gCheck && bCheck) {
 
@@ -314,17 +316,13 @@ class MainCanvas extends Component {
         rgb: rgb
       }).then(response => {
         if (response.status === 200) {
-          // let canvas = document.getElementById('mainCanvas');
-          // let c = canvas.getContext('2d');
-          // c.fillStyle = `rgb(${parseInt(this.state.formr)}, ${parseInt(this.state.formg)}, ${parseInt(this.state.formb)})`;
-          // c.fillRect(this.state.formx - 1, this.state.formy - 1, 1, 1);
-          // this.setWidgetColor();
           socket.emit('pixel', response);
         }
-        console.log(response);
       }).catch(err => {
         console.log(err);
       });
+    } else {
+      alert("Please check your inputs");
     }
 
 
@@ -362,13 +360,13 @@ class MainCanvas extends Component {
                 <Coord currx={this.state.currx} curry={this.state.curry} chx={this.state.chx} chy={this.state.chy} />
                 <Form>
                   <Form.Group widths="equal">
-                    <Form.Input value={this.state.formx} fluid onChange={this.formChange} name="formx" label="X coordinate" />
-                    <Form.Input value={this.state.formy} fluid onChange={this.formChange} name="formy" label="Y coordinate" />
+                    <Form.Input placeholder="1-1000" value={this.state.formx} fluid onChange={this.formChange} name="formx" label="X coordinate" />
+                    <Form.Input placeholder="1-800" value={this.state.formy} fluid onChange={this.formChange} name="formy" label="Y coordinate" />
                   </Form.Group>
                   <Form.Group widths="equal">
-                    <Form.Input value={this.state.formr} fluid onChange={this.formChange} name="formr" label="Red" />
-                    <Form.Input value={this.state.formg} fluid onChange={this.formChange} name="formg" label="Green" />
-                    <Form.Input value={this.state.formb} fluid onChange={this.formChange} name="formb" label="Blue" />
+                    <Form.Input placeholder="1-255" value={this.state.formr} fluid onChange={this.formChange} name="formr" label="Red" />
+                    <Form.Input placeholder="1-255" value={this.state.formg} fluid onChange={this.formChange} name="formg" label="Green" />
+                    <Form.Input placeholder="1-255" value={this.state.formb} fluid onChange={this.formChange} name="formb" label="Blue" />
                   </Form.Group>
                   <Form.Button onClick={this.formClick}>Submit</Form.Button>
                 </Form>
