@@ -76,5 +76,18 @@ canvas {
     background-color: white;
 }
 
+.horizantalDivider {
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    .verticalDivider {
+        display: none;
+    }
+    .horizantalDivider {
+        display: block;
+    }
+}
+
 
 
