@@ -324,6 +324,12 @@ class MainCanvas extends Component {
         bCheck: bCheck,
         errorHidden: true,
         successHidden: false
+      }, () => {
+        setTimeout(() => {
+          this.setState({
+            successHidden: true
+          })
+        }, 3000)
       });
 
       axios.put('/api/canvas', {
