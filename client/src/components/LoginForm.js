@@ -137,7 +137,7 @@ class LoginForm extends Component {
               </Grid.Column>
             </Grid>
 
-            <Divider vertical>Or</Divider>
+            <Divider vertical className="verticalDivider">Or</Divider>
           </Segment>
         </Grid.Row>
       </Grid>
