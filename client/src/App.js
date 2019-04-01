@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import 'semantic-ui-css/semantic.min.css'
 import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./components/LoginPage";
@@ -10,28 +10,29 @@ import "./App.css";
 
 class App extends Component {
 
-  state = {
-    user: null
-  }
+	state = {
+		user: null
+	}
 
-  setUser = (user) => {
-	  this.setState({ user });
-  }
+	setUser = (user) => {
+		this.setState({ user });
+	}
 
-  render() {
-	const {user} = this.state;
-	const setUser = this.setUser;
-    return (
-		<Router>
-			<div>
+	render() {
+		const { user } = this.state;
+		const setUser = this.setUser;
+		return (
+			<Router>
 				<UserContext.Provider value={{ setUser, user }}>
-					<ProtectedRoute exact path="/" component={HomePage} />
-					<Route exact path="/login" component={LoginPage} />
+					<Switch>
+						<Route exact path="/" component={LoginPage} />
+						<ProtectedRoute exact path="/home" component={HomePage} />
+						<Route component={LoginPage} />
+					</Switch>
 				</UserContext.Provider>
-			</div>
-		</Router>
-    );
-  }
+			</Router>
+		);
+	}
 }
 
 export default App;

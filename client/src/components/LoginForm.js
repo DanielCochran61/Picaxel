@@ -40,7 +40,7 @@ class LoginForm extends Component {
     if (username && password) {
       Auth.logIn(username, password, response => {
         this.context.setUser(response);
-        this.props.history.push("/");
+        this.props.history.push("/home");
       });
     }
   };
