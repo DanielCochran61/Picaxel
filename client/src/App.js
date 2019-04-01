@@ -35,7 +35,7 @@ class App extends Component {
 					<Route exact path="/login" component={LoginPage} />
 				</UserContext.Provider>
 			</div>
-				<a id="credits" href="https://fontmeme.com/pixel-fonts/">Logo Made With Font Meme</a>
+			<a id="credits" href="https://fontmeme.com/pixel-fonts/">Logo Made With Font Meme</a>
 		</Router>
     );
   }
