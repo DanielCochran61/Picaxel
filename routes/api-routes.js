@@ -12,7 +12,7 @@ module.exports = function (app, io, http) {
 				const isValidPass = user.comparePassword(password);
 				if (isValidPass) {
 					// I need to ask about what I enter for the "superSecretKey. I know that it was a procENV thing" //
-					const token = jwt.sign({ data: user.id }, "superSecretKey");
+					const token = jwt.sign({ data: user.id }, process.env.JWT_KEY || "supersecretkey");
 					res.json({
 						id: user.id,
 						username: user.username,
