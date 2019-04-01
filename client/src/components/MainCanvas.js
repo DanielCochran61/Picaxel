@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Coord from './Coord';
-import { Container, Form, Grid } from 'semantic-ui-react';
+import { Container, Form, Grid, Message, Transition } from 'semantic-ui-react';
 import axios from 'axios';
 import 'semantic-ui-css/semantic.min.css';
 import { ChromePicker } from 'react-color';
@@ -27,7 +27,14 @@ class MainCanvas extends Component {
     formr: 0,
     formg: 0,
     formb: 0,
-    pickerColor: ''
+    pickerColor: '',
+    xCheck: true,
+    yCheck: true,
+    rCheck: true,
+    gCheck: true,
+    bCheck: true,
+    errorHidden: true,
+    successHidden: true
   }
 
   componentDidMount() {
@@ -37,9 +44,7 @@ class MainCanvas extends Component {
 
 
     socket.on('message', data => {
-      console.log(data);
       let coord = data.data.coord.split('.')[1];
-      console.log(coord);
       let x = coord.split('-')[0];
       let y = coord.split('-')[1];
       let color = data.data.rgb;
@@ -66,7 +71,7 @@ class MainCanvas extends Component {
     let c = canvas.getContext('2d');
 
     c.beginPath();
-    c.rect(1, 1, 1000, 800);
+    c.rect(0, 0, 1000, 800);
     c.fillStyle = "white";
     c.fill();
 
@@ -74,7 +79,7 @@ class MainCanvas extends Component {
     ///////////////////////widget////////////////////////////////////////
     let widgetScale = document.getElementById('widgetScale');
 
-    widgetScale.style = "transform: scale(20, 20)";
+    widgetScale.style = "transform: scale(25, 25)";
 
 
     let widget = document.getElementById('widget');
@@ -93,11 +98,15 @@ class MainCanvas extends Component {
     widgetc.fill();
 
 
+    widget.addEventListener("mouseover", e => {
+      e.preventDefault();
+      widget.style.cursor = "move";
+    })
+
 
     //////////////////////////api////////////////////////////////////
 
     axios.get('/api/canvas').then(res => {
-      console.log(res);
       for (let pixel in res.data.pixels) {
         let coord = pixel.toString().split('-');
         let xcoord = parseInt(coord[0]);
@@ -106,8 +115,6 @@ class MainCanvas extends Component {
         let red = color[0];
         let green = color[1];
         let blue = color[2];
-
-        console.log(red, green, blue);
 
         c.fillStyle = `rgb(${red},${green},${blue})`;
         c.fillRect(xcoord - 1, ycoord - 1, 1, 1);
@@ -140,6 +147,10 @@ class MainCanvas extends Component {
 
     /////////////////////////////////////////////////////////////////
 
+    canvas.addEventListener('mouseover', e => {
+      // e.preventDefault();
+      canvas.style.cursor = "crosshair";
+    })
 
     canvas.addEventListener('wheel', e => {
       e.preventDefault();
@@ -150,7 +161,7 @@ class MainCanvas extends Component {
           }, () => {
             let container = document.getElementById('containment');
             scaleDiv.style = `transform: scale(${this.state.currScale},${this.state.currScale})`;
-            container.scroll(this.state.chx * (this.state.currScale -1), this.state.chy * (this.state.currScale -1));
+            container.scroll(this.state.chx * (this.state.currScale - 1), this.state.chy * (this.state.currScale - 1));
           });
         }
         console.log('scrolling up');
@@ -161,7 +172,7 @@ class MainCanvas extends Component {
             currScale: this.state.currScale - 1
           }, () => {
             scaleDiv.style = `transform: scale(${this.state.currScale},${this.state.currScale})`;
-            container.scroll(this.state.chx * (this.state.currScale -1) , this.state.chy * (this.state.currScale -1));
+            container.scroll(this.state.chx * (this.state.currScale - 1), this.state.chy * (this.state.currScale - 1));
           });
         }
         console.log('scrolling down');
@@ -213,7 +224,7 @@ class MainCanvas extends Component {
       this.setState({
         currx: currx,
         curry: curry,
-        formx : currx,
+        formx: currx,
         formy: curry
       }, () => {
         this.setWidgetColor();
@@ -243,23 +254,23 @@ class MainCanvas extends Component {
     let canvas = document.getElementById('mainCanvas');
     let c = canvas.getContext('2d');
 
-    let x = this.state.currx - 3;
-    let y = this.state.curry - 3;
+    let x = this.state.currx - 4;
+    let y = this.state.curry - 4;
 
     if (x <= 1) {
       x = 1;
     }
 
-    if (x >= 993) {
-      x = 993
+    if (x >= 992) {
+      x = 992
     }
 
     if (y <= 1) {
       y = 1;
     }
 
-    if (y >= 793) {
-      y = 793
+    if (y >= 792) {
+      y = 792
     }
 
     let colors = c.getImageData(x, y, 7, 7).data.slice();
@@ -285,8 +296,6 @@ class MainCanvas extends Component {
   }
 
   handlePickerChange(color, e) {
-    console.log(color);
-    console.log(e);
   }
 
   formClick = (e) => {
@@ -302,43 +311,61 @@ class MainCanvas extends Component {
     let rCheck = (parseInt(r) >= 0 && parseInt(r) <= 255);
     let gCheck = (parseInt(g) >= 0 && parseInt(g) <= 255);
     let bCheck = (parseInt(b) >= 0 && parseInt(b) <= 255);
-    console.log(xCheck, yCheck, rCheck, gCheck, bCheck);
 
     if (xCheck && yCheck && rCheck && gCheck && bCheck) {
 
       let coord = "pixels." + x + "-" + y;
       let rgb = [parseInt(r), parseInt(g), parseInt(b)];
+      this.setState({
+        xCheck: xCheck,
+        yCheck: yCheck,
+        rCheck: rCheck,
+        gCheck: gCheck,
+        bCheck: bCheck,
+        errorHidden: true,
+        successHidden: false
+      }, () => {
+        setTimeout(() => {
+          this.setState({
+            successHidden: true
+          })
+        }, 3000)
+      });
 
       axios.put('/api/canvas', {
         coord: coord,
         rgb: rgb
       }).then(response => {
         if (response.status === 200) {
-          // let canvas = document.getElementById('mainCanvas');
-          // let c = canvas.getContext('2d');
-          // c.fillStyle = `rgb(${parseInt(this.state.formr)}, ${parseInt(this.state.formg)}, ${parseInt(this.state.formb)})`;
-          // c.fillRect(this.state.formx - 1, this.state.formy - 1, 1, 1);
-          // this.setWidgetColor();
           socket.emit('pixel', response);
         }
-        console.log(response);
+
       }).catch(err => {
         console.log(err);
       });
+    } else {
+      this.setState({
+        xCheck: xCheck,
+        yCheck: yCheck,
+        rCheck: rCheck,
+        gCheck: gCheck,
+        bCheck: bCheck,
+        errorHidden: false,
+        successHidden: true
+      })
     }
-
-
   }
 
   handleChangeComplete = (color) => {
-    this.setState({ 
-      pickerColor: color}, () => {
-        this.setState({
-          formr : this.state.pickerColor.rgb.r,
-          formg : this.state.pickerColor.rgb.g,
-          formb : this.state.pickerColor.rgb.b
-        })
-      });
+    this.setState({
+      pickerColor: color
+    }, () => {
+      this.setState({
+        formr: this.state.pickerColor.rgb.r,
+        formg: this.state.pickerColor.rgb.g,
+        formb: this.state.pickerColor.rgb.b
+      })
+    });
   }
 
 
@@ -356,19 +383,30 @@ class MainCanvas extends Component {
               </div>
             </div>
           </Grid.Column>
-          <Grid.Column>
+          <Grid.Column className="bottomRow">
             <Grid>
               <Grid.Column width={10}>
                 <Coord currx={this.state.currx} curry={this.state.curry} chx={this.state.chx} chy={this.state.chy} />
+                <Transition visible={!this.state.errorHidden} animation='scale' duration={500}>
+                  {<Message className="message" negative>{!this.state.xCheck ? <p>Invalid X coordinate</p> : console.log()}
+                    {!this.state.yCheck ? <p>Invalid Y coordinate</p> : console.log()}
+                    {!this.state.rCheck ? <p>Invalid Red Input</p> : console.log()}
+                    {!this.state.gCheck ? <p>Invalid Green Input</p> : console.log()}
+                    {!this.state.bCheck ? <p>Invalid Blue Input</p> : console.log()}</Message>}
+                </Transition>
+                <Transition visible={!this.state.successHidden} animation='scale' duration={500}>
+                  <Message className="message" positive>Success!</Message>
+                </Transition>
+
                 <Form>
                   <Form.Group widths="equal">
-                    <Form.Input value={this.state.formx} fluid onChange={this.formChange} name="formx" label="X coordinate" />
-                    <Form.Input value={this.state.formy} fluid onChange={this.formChange} name="formy" label="Y coordinate" />
+                    <Form.Input placeholder="1-1000" value={this.state.formx} fluid onChange={this.formChange} name="formx" label="X coordinate" />
+                    <Form.Input placeholder="1-800" value={this.state.formy} fluid onChange={this.formChange} name="formy" label="Y coordinate" />
                   </Form.Group>
                   <Form.Group widths="equal">
-                    <Form.Input value={this.state.formr} fluid onChange={this.formChange} name="formr" label="Red" />
-                    <Form.Input value={this.state.formg} fluid onChange={this.formChange} name="formg" label="Green" />
-                    <Form.Input value={this.state.formb} fluid onChange={this.formChange} name="formb" label="Blue" />
+                    <Form.Input placeholder="1-255" value={this.state.formr} fluid onChange={this.formChange} name="formr" label="Red" />
+                    <Form.Input placeholder="1-255" value={this.state.formg} fluid onChange={this.formChange} name="formg" label="Green" />
+                    <Form.Input placeholder="1-255" value={this.state.formb} fluid onChange={this.formChange} name="formb" label="Blue" />
                   </Form.Group>
                   <Form.Button onClick={this.formClick}>Submit</Form.Button>
                 </Form>

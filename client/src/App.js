@@ -7,6 +7,8 @@ import HomePage from "./components/HomePage";
 import UserContext from "./context/UserContext";
 import { Menu } from "semantic-ui-react";
 
+import "./App.css";
+
 class App extends Component {
 
   state = {
@@ -33,6 +35,7 @@ class App extends Component {
 					<Route exact path="/login" component={LoginPage} />
 				</UserContext.Provider>
 			</div>
+				<a id="credits" href="https://fontmeme.com/pixel-fonts/">Logo Made With Font Meme</a>
 		</Router>
     );
   }
