@@ -59,6 +59,11 @@ canvas {
     margin: 0 auto;
 } */
 
+.loginMessage {
+    height: 50px;
+    background-color: transparent;
+}
+
 
 #containment {
     overflow: auto;

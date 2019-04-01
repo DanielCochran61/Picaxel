@@ -28,29 +28,29 @@ class LoginForm extends Component {
       username: this.state.reguser,
       password: this.state.regpw
     }).then(data => {
-         console.log(data);
-        if(data.data.status === 400) {
-          this.setState({
-            errorHidden : false
-          } , () => {
-            setTimeout(() => {
-              this.setState({
-                errorHidden : true
-              })
-            }, 3000)
-          })
-        } else {
-          this.setState({
-            successHidden : false
-          }, () => {
-            setTimeout(() => {
-              this.setState({
-                successHidden : true
-              })
-            }, 3000)
-          })
-        }
-      })
+      console.log(data);
+      if (data.data.status === 400) {
+        this.setState({
+          errorHidden: false
+        }, () => {
+          setTimeout(() => {
+            this.setState({
+              errorHidden: true
+            })
+          }, 3000)
+        })
+      } else {
+        this.setState({
+          successHidden: false
+        }, () => {
+          setTimeout(() => {
+            this.setState({
+              successHidden: true
+            })
+          }, 3000)
+        })
+      }
+    })
   };
 
   submitHandler = e => {
@@ -63,27 +63,31 @@ class LoginForm extends Component {
       });
     }
   };
-  
+
 
 
   render() {
     return (
       <Grid>
-        <Grid.Row style={{'padding-top': '70px'}} centered>
-          <Grid.Row style={{'padding': '30px'}} centered>
+        <Grid.Row style={{ 'paddingTop': '70px' }} centered>
+          <Grid.Row style={{ 'padding': '30px' }} centered>
             <Image src="https://fontmeme.com/permalink/190329/782fbe6b51d892a825fb0c88db50a702.png" alt="pixel-fonts" />
           </Grid.Row>
+        </Grid.Row>
+        <Grid.Row centered>
+          <div className="loginMessage">
+            <Transition visible={!this.state.errorHidden} animation='scale' duration={500}>
+              {<Message className="message" negative>Username Already Taken</Message>}
+            </Transition>
+            <Transition visible={!this.state.successHidden} animation='scale' duration={500}>
+              {<Message className="message" positive>Successfully Registered</Message>}
+            </Transition>
+          </div>
         </Grid.Row>
         <Grid.Row centered>
           <Segment placeholder>
             <Grid columns={2} relaxed='very' stackable>
               <Grid.Column>
-              <Transition visible={!this.state.errorHidden} animation='scale' duration={500}>
-                  {<Message className="message" negative>Username Already Taken</Message>}
-                </Transition>
-                <Transition visible={!this.state.successHidden} animation='scale' duration={500}>
-                  {<Message className="message" positive>Successfully Registered</Message>}
-                </Transition>
                 <Form onSubmit={this.registrationHandler}>
                   <h3>Register</h3>
                   <Form.Field>

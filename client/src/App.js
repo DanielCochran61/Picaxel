@@ -34,7 +34,6 @@ class App extends Component {
 					<Switch>
 						<Route exact path="/" component={LoginPage} />
 						<ProtectedRoute exact path="/home" component={HomePage} />
-						<Route component={LoginPage} />
 					</Switch>
 				</UserContext.Provider>
 			</div>
