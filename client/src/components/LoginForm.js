@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import Auth from "../utils/Auth";
 import Axios from "axios";
-import { Grid, Form, Input, Button, Image } from "semantic-ui-react";
+import { Grid, Form, Input, Button, Image, Segment, Divider } from "semantic-ui-react";
 
 class LoginForm extends Component {
   static contextType = UserContext;
@@ -50,62 +50,70 @@ class LoginForm extends Component {
   render() {
     return (
       <Grid>
-        <Grid.Row centered>
-        <Image src="https://fontmeme.com/permalink/190329/782fbe6b51d892a825fb0c88db50a702.png" alt="pixel-fonts" />
+        <Grid.Row style={{'padding-top': '70px'}} centered>
+          <Grid.Row style={{'padding': '30px'}} centered>
+            <Image src="https://fontmeme.com/permalink/190329/782fbe6b51d892a825fb0c88db50a702.png" alt="pixel-fonts" />
+          </Grid.Row>
         </Grid.Row>
         <Grid.Row centered>
-          <Grid.Column width={3}>
-            <Form onSubmit={this.registrationHandler}>
-              <h3>Register</h3>
-              <Form.Field>
-                <input
-                  type="text"
-                  name="reguser"
-                  value={this.state.reguser}
-                  onChange={this.changeHandler}
-                />
-              </Form.Field>
-              <Form.Field>
-                <input
-                  type="password"
-                  name="regpw"
-                  value={this.state.regpw}
-                  onChange={this.changeHandler}
-                />
-              </Form.Field>
-              <Form.Field>
-                <Button type="submit" color="green">
-                  Register
-                </Button>
-              </Form.Field>
-            </Form>
-          </Grid.Column>
-          <Grid.Column width={3}>
-            <Form onSubmit={this.submitHandler}>
-              <h3>Log In</h3>
-              <Form.Field>
-                <input
-                  type="text"
-                  name="username"
-                  value={this.state.username}
-                  onChange={this.changeHandler}
-                />
-              </Form.Field>
-              <Form.Field>
-                <input
-                  type="password"
-                  name="password"
-                  value={this.state.password}
-                  onChange={this.changeHandler}
-                />
-              </Form.Field>
-              <Form.Field>
-                <Button type="submit" color="teal">
-                  Submit
-                </Button>
-              </Form.Field>
-            </Form>
-          </Grid.Column>
+          <Segment placeholder>
+            <Grid columns={2} relaxed='very' stackable>
+              <Grid.Column>
+                <Form onSubmit={this.registrationHandler}>
+                  <h3>Register</h3>
+                  <Form.Field>
+                    <input
+                      type="text"
+                      name="reguser"
+                      value={this.state.reguser}
+                      onChange={this.changeHandler}
+                    />
+                  </Form.Field>
+                  <Form.Field>
+                    <input
+                      type="password"
+                      name="regpw"
+                      value={this.state.regpw}
+                      onChange={this.changeHandler}
+                    />
+                  </Form.Field>
+                  <Form.Field>
+                    <Button type="submit" color="green">
+                      Register
+                    </Button>
+                  </Form.Field>
+                </Form>
+              </Grid.Column>
+              <Grid.Column>
+                <Form onSubmit={this.submitHandler}>
+                  <h3>Log In</h3>
+                  <Form.Field>
+                    <input
+                      type="text"
+                      name="username"
+                      value={this.state.username}
+                      onChange={this.changeHandler}
+                    />
+                  </Form.Field>
+                  <Form.Field>
+                    <input
+                      type="password"
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.changeHandler}
+                    />
+                  </Form.Field>
+                  <Form.Field>
+                    <Button type="submit" color="teal">
+                      Submit
+                    </Button>
+                  </Form.Field>
+                </Form>
+              </Grid.Column>
+            </Grid>
+
+            <Divider vertical>Or</Divider>
+          </Segment>
         </Grid.Row>
       </Grid>
     );
