@@ -24,7 +24,12 @@
     z-index: 99;
 }
 
-
+#credits {
+    bottom: 0px;
+    position: fixed;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
 
 #widgetContain {
     width: 0.1%;
@@ -38,11 +43,6 @@
     margin-left: 5%;
 }
 
-#root {
-    padding-top : 20px;
-    padding-bottom : 20px;
-
-}
 body {
     background-image: url("./images/crossline-dots.png");
     background-repeat: repeat;

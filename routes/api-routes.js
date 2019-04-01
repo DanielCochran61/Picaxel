@@ -35,6 +35,9 @@ module.exports = function (app, io, http) {
 
 		User.create(userData).then(function(dbUser){
 			res.json({success:true});
+		}).catch( err => {
+			res.json({status: 400,
+				err: err});
 		});
 	});
 
