@@ -5,6 +5,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./components/LoginPage";
 import HomePage from "./components/HomePage";
 import UserContext from "./context/UserContext";
+import { Menu } from "semantic-ui-react";
 
 class App extends Component {
 
@@ -23,9 +24,9 @@ class App extends Component {
 		<Router>
 			<div>
 				<header>
-					<nav>
-						<Link to="/">Home</Link> | <Link to="/login">Login</Link>
-					</nav>
+						<Menu>
+							<Menu.Item as='a' to="/logout">Logout</Menu.Item>
+						</Menu>
 				</header>
 				<UserContext.Provider value={{ setUser, user }}>
 					<ProtectedRoute exact path="/" component={HomePage} />
