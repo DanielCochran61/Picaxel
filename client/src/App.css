@@ -1,33 +1,80 @@
-.App {
-  text-align: center;
+#scaleDiv {
+    transform-origin: top left;
+    overflow: auto;
+    display: flex;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+
+#widgetScale {
+    width: 0.1%;
+    height: 0.1%;
+    position: relative;
+    left: -20px;
+    z-index: -100;
+    transform-origin: top left;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#widgetDrag {
+    position: relative;
+    z-index: 99;
 }
 
-.App-link {
-  color: #61dafb;
+#widget {
+    position: relative;
+    z-index: 99;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+
+#widgetContain {
+    width: 0.1%;
+    height: 0.1%;
+    position: relative;
+    z-index: 99;
+    margin-left: 5%;
 }
+
+#coord {
+    margin-left: 5%;
+}
+
+#root {
+    padding-top : 20px;
+    padding-bottom : 20px;
+
+}
+body {
+    background-image: url("./images/crossline-dots.png");
+    background-repeat: repeat;
+}
+
+
+
+canvas {
+    image-rendering: pixelated;
+    overflow: hidden;
+}
+
+/* #mainCanvas {
+    margin: 0 auto;
+} */
+
+
+#containment {
+    overflow: auto;
+    margin: 0 auto;
+}
+
+#container {
+    background-color: grey;
+    border: 2px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.bottomRow {
+    background-color: white;
+}
+
+
+

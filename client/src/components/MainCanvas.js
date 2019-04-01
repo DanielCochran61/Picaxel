@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Coord from './Coord';
-import { Container, Form, Grid } from 'semantic-ui-react';
+import { Container, Form, Grid, Message, Transition } from 'semantic-ui-react';
 import axios from 'axios';
 import 'semantic-ui-css/semantic.min.css';
 import { ChromePicker } from 'react-color';
@@ -27,7 +27,14 @@ class MainCanvas extends Component {
     formr: 0,
     formg: 0,
     formb: 0,
-    pickerColor: ''
+    pickerColor: '',
+    xCheck: true,
+    yCheck: true,
+    rCheck: true,
+    gCheck: true,
+    bCheck: true,
+    errorHidden: true,
+    successHidden: true
   }
 
   componentDidMount() {
@@ -91,7 +98,7 @@ class MainCanvas extends Component {
     widgetc.fill();
 
 
-    widget.addEventListener("mouseover", e=> {
+    widget.addEventListener("mouseover", e => {
       e.preventDefault();
       widget.style.cursor = "move";
     })
@@ -154,7 +161,7 @@ class MainCanvas extends Component {
           }, () => {
             let container = document.getElementById('containment');
             scaleDiv.style = `transform: scale(${this.state.currScale},${this.state.currScale})`;
-            container.scroll(this.state.chx * (this.state.currScale -1), this.state.chy * (this.state.currScale -1));
+            container.scroll(this.state.chx * (this.state.currScale - 1), this.state.chy * (this.state.currScale - 1));
           });
         }
         console.log('scrolling up');
@@ -165,7 +172,7 @@ class MainCanvas extends Component {
             currScale: this.state.currScale - 1
           }, () => {
             scaleDiv.style = `transform: scale(${this.state.currScale},${this.state.currScale})`;
-            container.scroll(this.state.chx * (this.state.currScale -1) , this.state.chy * (this.state.currScale -1));
+            container.scroll(this.state.chx * (this.state.currScale - 1), this.state.chy * (this.state.currScale - 1));
           });
         }
         console.log('scrolling down');
@@ -217,7 +224,7 @@ class MainCanvas extends Component {
       this.setState({
         currx: currx,
         curry: curry,
-        formx : currx,
+        formx: currx,
         formy: curry
       }, () => {
         this.setWidgetColor();
@@ -309,6 +316,15 @@ class MainCanvas extends Component {
 
       let coord = "pixels." + x + "-" + y;
       let rgb = [parseInt(r), parseInt(g), parseInt(b)];
+      this.setState({
+        xCheck: xCheck,
+        yCheck: yCheck,
+        rCheck: rCheck,
+        gCheck: gCheck,
+        bCheck: bCheck,
+        errorHidden: true,
+        successHidden: false
+      });
 
       axios.put('/api/canvas', {
         coord: coord,
@@ -317,25 +333,33 @@ class MainCanvas extends Component {
         if (response.status === 200) {
           socket.emit('pixel', response);
         }
+
       }).catch(err => {
         console.log(err);
       });
     } else {
-      alert("Please check your inputs");
+      this.setState({
+        xCheck: xCheck,
+        yCheck: yCheck,
+        rCheck: rCheck,
+        gCheck: gCheck,
+        bCheck: bCheck,
+        errorHidden: false,
+        successHidden: true
+      })
     }
-
-
   }
 
   handleChangeComplete = (color) => {
-    this.setState({ 
-      pickerColor: color}, () => {
-        this.setState({
-          formr : this.state.pickerColor.rgb.r,
-          formg : this.state.pickerColor.rgb.g,
-          formb : this.state.pickerColor.rgb.b
-        })
-      });
+    this.setState({
+      pickerColor: color
+    }, () => {
+      this.setState({
+        formr: this.state.pickerColor.rgb.r,
+        formg: this.state.pickerColor.rgb.g,
+        formb: this.state.pickerColor.rgb.b
+      })
+    });
   }
 
 
@@ -357,6 +381,17 @@ class MainCanvas extends Component {
             <Grid>
               <Grid.Column width={10}>
                 <Coord currx={this.state.currx} curry={this.state.curry} chx={this.state.chx} chy={this.state.chy} />
+                <Transition visible={!this.state.errorHidden} animation='scale' duration={500}>
+                  {<Message className="message" negative>{!this.state.xCheck ? <p>Invalid X coordinate</p> : console.log()}
+                    {!this.state.yCheck ? <p>Invalid Y coordinate</p> : console.log()}
+                    {!this.state.rCheck ? <p>Invalid Red Input</p> : console.log()}
+                    {!this.state.gCheck ? <p>Invalid Green Input</p> : console.log()}
+                    {!this.state.bCheck ? <p>Invalid Blue Input</p> : console.log()}</Message>}
+                </Transition>
+                <Transition visible={!this.state.successHidden} animation='scale' duration={500}>
+                  <Message className="message" positive>Success!</Message>
+                </Transition>
+
                 <Form>
                   <Form.Group widths="equal">
                     <Form.Input placeholder="1-1000" value={this.state.formx} fluid onChange={this.formChange} name="formx" label="X coordinate" />

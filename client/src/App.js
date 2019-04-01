@@ -6,6 +6,8 @@ import LoginPage from "./components/LoginPage";
 import HomePage from "./components/HomePage";
 import UserContext from "./context/UserContext";
 
+import "./App.css";
+
 class App extends Component {
 
   state = {
