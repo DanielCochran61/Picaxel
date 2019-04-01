@@ -72,7 +72,7 @@ class MainCanvas extends Component {
     ///////////////////////widget////////////////////////////////////////
     let widgetScale = document.getElementById('widgetScale');
 
-    widgetScale.style = "transform: scale(20, 20)";
+    widgetScale.style = "transform: scale(25, 25)";
 
 
     let widget = document.getElementById('widget');
@@ -100,7 +100,6 @@ class MainCanvas extends Component {
     //////////////////////////api////////////////////////////////////
 
     axios.get('/api/canvas').then(res => {
-      console.log(res);
       for (let pixel in res.data.pixels) {
         let coord = pixel.toString().split('-');
         let xcoord = parseInt(coord[0]);
@@ -354,7 +353,7 @@ class MainCanvas extends Component {
               </div>
             </div>
           </Grid.Column>
-          <Grid.Column>
+          <Grid.Column className="bottomRow">
             <Grid>
               <Grid.Column width={10}>
                 <Coord currx={this.state.currx} curry={this.state.curry} chx={this.state.chx} chy={this.state.chy} />

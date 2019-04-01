@@ -5,7 +5,7 @@ const Widget = () => (
     
         <div id="widgetContain">
             <div id="widgetScale">
-            <Draggable scale={20} id="widgetDrag" >
+            <Draggable scale={25} id="widgetDrag" >
                 <canvas id="widget">
                 </canvas>
             </Draggable>
