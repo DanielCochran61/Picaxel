@@ -77,6 +77,14 @@ canvas {
     padding: 5px;
 }
 
+#root {
+    padding-bottom: 30px;
+}
+
+.topBar {
+    margin-bottom: 30px;
+}
+
 .bottomRow {
     background-color: white;
 }
@@ -84,6 +92,8 @@ canvas {
 .horizantalDivider {
     display: none;
 }
+
+
 
 @media only screen and (max-width: 768px) {
     .verticalDivider {

@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-require('./routes/api-routes')(app, io, http);
+require('./routes/api-routes')(app, io);
 
 if(process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {

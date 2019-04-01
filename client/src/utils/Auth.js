@@ -6,6 +6,7 @@ function Auth () {
 	function logIn (username, password, cb) {
 		axios.post("/api/authenticate", {username, password})
 			.then(response => {
+				console.log(response)
 				localStorage.setItem("token", response.data.token);
 				loggedIn = true;
 				cb(response.data);
@@ -25,15 +26,29 @@ function Auth () {
 		return localStorage.getItem("token");
 	}
 
+	function setUsername (username) {
+		localStorage.setItem("username", username);
+	}
+
+	function getUsername () {
+		return localStorage.getItem("username");
+	}
+
 	function isLoggedIn () {
-		return loggedIn;
+		if(localStorage.getItem("token")) {
+			return true;
+		} else {
+			return false;
+		} 
 	}
 
 	return {
 		isLoggedIn,
 		logIn,
 		logOut,
-		getToken
+		getToken,
+		setUsername,
+		getUsername
 	}
 }
 

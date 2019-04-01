@@ -5,12 +5,12 @@ import UserContext from "../context/UserContext";
 import {Grid, Container, Header, Button, Icon} from 'semantic-ui-react';
 const HomePage = (props) => (
 	<div>
-		<Grid container fluid columns={4}>
+		<Grid container columns={4}>
 			<Grid.Column width={4} color='teal'>
 				<Container textAlign='left'>
 					<UserContext.Consumer>
 						{context => (
-							<Header as="h2">Welcome, {context.user.username}!</Header>
+							<Header as="h2">Welcome, {context.user && context.user.username}!</Header>
 						)}
 					</UserContext.Consumer>
 				</Container>
