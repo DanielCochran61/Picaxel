@@ -13,7 +13,8 @@ class LoginForm extends Component {
     regpw: "",
     username: "",
     password: "",
-    errorHidden: true
+    errorHidden: true,
+    successHidden: true
   };
 
   changeHandler = e => {
@@ -35,6 +36,16 @@ class LoginForm extends Component {
             setTimeout(() => {
               this.setState({
                 errorHidden : true
+              })
+            }, 3000)
+          })
+        } else {
+          this.setState({
+            successHidden : false
+          }, () => {
+            setTimeout(() => {
+              this.setState({
+                successHidden : true
               })
             }, 3000)
           })
@@ -69,6 +80,9 @@ class LoginForm extends Component {
               <Grid.Column>
               <Transition visible={!this.state.errorHidden} animation='scale' duration={500}>
                   {<Message className="message" negative>Username Already Taken</Message>}
+                </Transition>
+                <Transition visible={!this.state.successHidden} animation='scale' duration={500}>
+                  {<Message className="message" positive>Successfully Registered</Message>}
                 </Transition>
                 <Form onSubmit={this.registrationHandler}>
                   <h3>Register</h3>
