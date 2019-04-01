@@ -26,7 +26,7 @@
 
 #credits {
     bottom: 0px;
-    color: red;
+    position: fixed;
 }
 
 #widgetContain {
