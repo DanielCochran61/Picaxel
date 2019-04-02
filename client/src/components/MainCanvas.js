@@ -148,7 +148,7 @@ class MainCanvas extends Component {
     /////////////////////////////////////////////////////////////////
 
     canvas.addEventListener('mouseover', e => {
-      // e.preventDefault();
+      e.preventDefault();
       canvas.style.cursor = "crosshair";
     })
 
