@@ -5,8 +5,6 @@ const Canvas = require("../models/Canvas");
 module.exports = function (app, io, http) {
 
 	app.post("/api/authenticate", function (req, res) {
-		console.log(req.body);
-		const {username, password} = req.body;
 		User.findOne({ username: username })
 			.then(function (user) {
 				const isValidPass = user.comparePassword(password);
